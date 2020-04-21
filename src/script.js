@@ -1,15 +1,6 @@
-const KEY_ESC = 27;
-const KEY_W = 87;
-const KEY_S = 83;
-const KEY_A = 65;
-const KEY_D = 68;
-const KEY_LEFT = 37;
-const KEY_TOP = 38;
-const KEY_RIGHT = 39;
-const KEY_DOWN = 40;
-
-const tableSolution = document.querySelector('.tableSolution');
-const tablePuzzle = document.querySelector('.tablePuzzle');
+// @TODO spin col
+// @TODO add controls to screen
+// @TODO add high contrast option
 
 const gridSolution = [
   [1,2,2,2,2,1],
@@ -20,31 +11,46 @@ const gridSolution = [
   [1,3,3,3,3,1]
 ];
 
-// const gridSolution = [
-// [0,4,2,5,2,0,2,0],
-// [4,5,2,0,2,4,4,2],
-// [3,5,2,2,5,5,1,2],
-// [5,0,0,5,5,4,3,0],
-// [2,0,0,2,1,3,3,0],
-// [4,2,1,4,5,5,1,2],
-// [4,0,3,0,3,2,3,0],
-// [1,4,1,3,2,2,0,2],
-// ]
-
-const gridPuzzle = [];
-
 const colors = [
   { "backgroundColor": "#eee", "color": "white" },
-  { "backgroundColor": "#cf0", "color": "black" },
-  { "backgroundColor": "#ED70FF", "color": "white" },
-  { "backgroundColor": "#49F9E8", "color": "black" },
-  { "backgroundColor": "#FF8820", "color": "white" },
-  { "backgroundColor": "#FF3D3D", "color": "black" },
+  { "backgroundColor": "#B5FFA2", "color": "black" },
+  { "backgroundColor": "#86D1E9", "color": "white" },
+  { "backgroundColor": "#DAA1FF", "color": "black" },
+  { "backgroundColor": "#F79B7F", "color": "white" },
+  { "backgroundColor": "#FFEC80", "color": "black" },
 ];
+
+const gridElement = document.querySelector('.grid');
+const gridSize = gridSolution.length;
+const gridPuzzle = [];
 
 let rowSelected = 0;
 let colSelected = 0;
 let done = false; // console.log(done)
+let html = "";
+
+renderGrid('tablePuzzle');
+renderGrid('tableSolution');
+
+const tableSolution = document.querySelector('.tableSolution');
+const tablePuzzle = document.querySelector('.tablePuzzle');
+
+function renderGrid(classname) {
+  let root = document.documentElement;
+  root.style.setProperty('--rows', gridSize);
+
+  html += `<div class="table `+classname+`">`;
+  for (let row = 0; row < gridSize; row++) {
+      html += `<div class="row">`;
+      for (let column = 0; column < gridSize; column++) {
+        html += `<div class="cel">`;
+        html += "</div>";
+      }
+      html += "</div>";
+  }
+  html += "</div>";
+  gridElement.innerHTML = html;
+}
 
 function matchTables() {
   for (let r = 0; r < gridSolution.length; r++) {
@@ -70,79 +76,6 @@ function success() {
   document.querySelector('.success').classList.add('success--on');
   done = false;
 }
-
-document.addEventListener('keydown', function (e) {
-  var code = e.keyCode ? e.keyCode : e.which; // console.log(code);
-
-  switch (code) {
-    case KEY_ESC:
-      // esc
-      if (done) {
-        success();
-        done = false;
-      } else {
-        if (window.confirm("Do you really want to SHUFFLE it?")) {
-          document.querySelector('.success').classList.remove('success--on');
-          shuffleTable();
-          colorTable(gridPuzzle, tablePuzzle);
-        }
-      }
-    break;
-
-    case KEY_W:
-      // w
-    break;
-
-    case KEY_S:
-      // s
-    break;
-
-    case KEY_A:
-      colSelected = Math.max(0, colSelected - 1);
-      selectCol(tablePuzzle);
-    break;
-
-    case KEY_D:
-      colSelected = Math.min(gridSolution[0].length - 1, colSelected + 1);
-      selectCol(tablePuzzle);
-
-    break;
-
-    case KEY_LEFT:
-      // left
-      if (done === false) {
-        spinRow(rowSelected, -1);
-        colorTable(gridPuzzle, tablePuzzle);
-        matchTables();
-      }
-    break;
-
-    case KEY_TOP:
-      // top
-      if (done === false) {
-        rowSelected = Math.max(0, rowSelected - 1);
-        selectRow(tablePuzzle);
-      }
-    break;
-
-    case KEY_RIGHT:
-      // right
-      if (done === false) {
-        spinRow(rowSelected, 1);
-        colorTable(gridPuzzle, tablePuzzle);
-        matchTables();
-      }
-    break;
-
-    case KEY_DOWN:
-      // down
-      if (done === false) {
-        rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
-        selectRow(tablePuzzle);
-      }
-    break;
-  }
-});
 
 function selectRow(baseElement) {
   const allRows = baseElement.querySelectorAll('.row');
@@ -232,13 +165,91 @@ function colorTable(grid, baseElement) {
   }
 }
 
+const KEY_ESC = 27;
+const KEY_W = 87;
+const KEY_S = 83;
+const KEY_A = 65;
+const KEY_D = 68;
+const KEY_LEFT = 37;
+const KEY_TOP = 38;
+const KEY_RIGHT = 39;
+const KEY_DOWN = 40;
+
+document.addEventListener('keydown', function (e) {
+  var code = e.keyCode ? e.keyCode : e.which; // console.log(code);
+
+  switch (code) {
+    case KEY_ESC:
+      // esc
+      if (done) {
+        success();
+        done = false;
+      } else {
+        if (window.confirm("Do you really want to SHUFFLE it?")) {
+          document.querySelector('.success').classList.remove('success--on');
+          shuffleTable();
+          colorTable(gridPuzzle, tablePuzzle);
+        }
+      }
+    break;
+
+    case KEY_W:
+      // w
+    break;
+
+    case KEY_S:
+      // s
+    break;
+
+    case KEY_A:
+      colSelected = Math.max(0, colSelected - 1);
+      selectCol(tablePuzzle);
+    break;
+
+    case KEY_D:
+      colSelected = Math.min(gridSolution[0].length - 1, colSelected + 1);
+      selectCol(tablePuzzle);
+
+    break;
+
+    case KEY_LEFT:
+      // left
+      if (done === false) {
+        spinRow(rowSelected, -1);
+        colorTable(gridPuzzle, tablePuzzle);
+        matchTables();
+      }
+    break;
+
+    case KEY_TOP:
+      // top
+      if (done === false) {
+        rowSelected = Math.max(0, rowSelected - 1);
+        selectRow(tablePuzzle);
+      }
+    break;
+
+    case KEY_RIGHT:
+      // right
+      if (done === false) {
+        spinRow(rowSelected, 1);
+        colorTable(gridPuzzle, tablePuzzle);
+        matchTables();
+      }
+    break;
+
+    case KEY_DOWN:
+      // down
+      if (done === false) {
+        rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
+        selectRow(tablePuzzle);
+      }
+    break;
+  }
+});
+
 console.log("RUNNING >>>> ");
 colorTable(gridSolution, tableSolution);
 shuffleTable();
 colorTable(gridPuzzle, tablePuzzle);
 console.log("DONE <<<<");
-
-// @TODO generate html rows/cols from array
-// @TODO spin col
-// @TODO add controls to screen
-// @TODO add high contrast option
