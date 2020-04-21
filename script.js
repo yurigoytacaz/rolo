@@ -1,3 +1,13 @@
+const KEY_ESC = 27;
+const KEY_W = 87;
+const KEY_S = 83;
+const KEY_A = 65;
+const KEY_D = 68;
+const KEY_LEFT = 37;
+const KEY_TOP = 38;
+const KEY_RIGHT = 39;
+const KEY_DOWN = 40;
+
 const tableSolution = document.querySelector('.tableSolution');
 const tablePuzzle = document.querySelector('.tablePuzzle');
 const gridSolution = [[1, 2, 2, 2, 2, 1], [1, 4, 0, 0, 5, 1], [1, 4, 0, 0, 5, 1], [1, 4, 0, 0, 5, 1], [1, 4, 0, 0, 5, 1], [1, 3, 3, 3, 3, 1]]; // const gridSolution = [
@@ -71,7 +81,7 @@ document.addEventListener('keydown', function (e) {
   var code = e.keyCode ? e.keyCode : e.which; // console.log(code);
 
   switch (code) {
-    case 27:
+    case KEY_ESC:
       // esc
       if (done) {
         success();
@@ -86,23 +96,23 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 87:
+    case KEY_W:
       // w
       break;
 
-    case 83:
+    case KEY_S:
       // s
       break;
 
-    case 65:
+    case KEY_A:
       // a
       break;
 
-    case 68:
+    case KEY_D:
       // d
       break;
 
-    case 37:
+    case KEY_LEFT:
       // left
       if (done === false) {
         spinRow(rowSelected, -1);
@@ -112,7 +122,7 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 38:
+    case KEY_TOP:
       // top
       if (done === false) {
         rowSelected = Math.max(0, rowSelected - 1);
@@ -121,7 +131,7 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 39:
+    case KEY_RIGHT:
       // right
       if (done === false) {
         spinRow(rowSelected, 1);
@@ -131,7 +141,7 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 40:
+    case KEY_DOWN:
       // down
       if (done === false) {
         rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
