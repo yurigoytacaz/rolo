@@ -1,6 +1,5 @@
 // @TODO spin col
 // @TODO add controls to screen
-// @TODO add high contrast option
 
 const gridSolution = [
   [1,2,2,2,2,1],
@@ -12,12 +11,12 @@ const gridSolution = [
 ];
 
 const colors = [
-  { "backgroundColor": "#eee", "color": "white" },
-  { "backgroundColor": "#B5FFA2", "color": "black" },
+  { "backgroundColor": "#FFEC80", "color": "black" },
   { "backgroundColor": "#86D1E9", "color": "white" },
+  { "backgroundColor": "#B5FFA2", "color": "black" },
   { "backgroundColor": "#DAA1FF", "color": "black" },
   { "backgroundColor": "#F79B7F", "color": "white" },
-  { "backgroundColor": "#FFEC80", "color": "black" },
+  { "backgroundColor": "#cccccc", "color": "black" },
 ];
 
 const gridElement = document.querySelector('.grid');
@@ -26,8 +25,9 @@ const gridPuzzle = [];
 
 let rowSelected = 0;
 let colSelected = 0;
-let done = false; // console.log(done)
+let debug = false;
 let html = "";
+let done = false;
 
 renderGrid('tablePuzzle');
 renderGrid('tableSolution');
@@ -88,7 +88,15 @@ function selectRow(baseElement) {
     } else {
       currentRow.classList.remove('row--active');
     }
-    console.log(currentRow);
+  }
+
+  // remove "selected" from cells
+  for (let i = 0; i < allRows.length; i++) {
+    const row = allRows[i].children;
+    for(let j = 0; j < row.length; j++) {
+      const cell = row[j];
+      cell.classList.remove('cell--selected');
+    }
   }
 }
 
@@ -102,11 +110,16 @@ function selectCol(baseElement) {
 
       if(j === colSelected) {
         cell.classList.add('cell--selected');
-        // allRows.classList.remove('row--active');
       } else {
         cell.classList.remove('cell--selected');
       }
     }
+  }
+
+  // rmeove "active" from rows
+  for (let r = 0; r < allRows.length; r++) {
+    const currentRow = allRows[r];
+    currentRow.classList.remove('row--active');
   }
 }
 
@@ -157,12 +170,27 @@ function colorTable(grid, baseElement) {
     const allCels = currentRow.querySelectorAll('.cel');
 
     for (let c = 0; c < allCels.length; c++) {
-      const currentCel = allCels[c]; // currentCel.innerHTML = r + "," + c;
+      const currentCel = allCels[c];
+
+      if (debug == true) {
+        currentCel.innerHTML = r + "," + c;
+      } else {
+        currentCel.innerHTML = '';
+      }
 
       currentCel.style.backgroundColor = colors[grid[r][c]].backgroundColor;
       currentCel.style.color = colors[grid[r][c]].color;
     }
   }
+}
+
+function debugar(){
+  if (debug == true){
+    debug = false;
+  } else {
+    debug = true;
+  }
+  console.log(debug)
 }
 
 const KEY_ESC = 27;
@@ -174,11 +202,17 @@ const KEY_LEFT = 37;
 const KEY_TOP = 38;
 const KEY_RIGHT = 39;
 const KEY_DOWN = 40;
+const KEY_SPACE = 32;
 
 document.addEventListener('keydown', function (e) {
-  var code = e.keyCode ? e.keyCode : e.which; // console.log(code);
+  var code = e.keyCode ? e.keyCode : e.which;
+  // console.log(code);
 
   switch (code) {
+    case KEY_SPACE:
+      debugar()
+    break;
+
     case KEY_ESC:
       // esc
       if (done) {
@@ -252,4 +286,6 @@ console.log("RUNNING >>>> ");
 colorTable(gridSolution, tableSolution);
 shuffleTable();
 colorTable(gridPuzzle, tablePuzzle);
+rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
+selectRow(tablePuzzle);
 console.log("DONE <<<<");
