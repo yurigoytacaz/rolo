@@ -15,6 +15,43 @@ body {
   box-sizing: border-box;
 }
 
+.wrap:before {
+  content: '';
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.7);
+}
+
+.wrap:after {
+  content: 'Boooooaaa!';
+  position: absolute;
+  z-index: 10;
+  color: #fff;
+  font-size: 40px;
+  text-align: center;
+  font-family: monospace;
+}
+
+.wrap:before,
+.wrap:after {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 300ms ease;
+}
+
+.wrap--done:before,
+.wrap--done:after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .table {
   display: grid;
   grid-gap: 5px;
@@ -42,11 +79,11 @@ body {
 }
 
 .tableSolution {
-  grid-gap: 2px;
-  width: 155px;
   position: absolute;
   top: 30px;
   left: 30px;
+  width: 155px;
+  grid-gap: 2px;
 }
 
 .tableSolution .row {
@@ -61,19 +98,37 @@ body {
 }
 
 .tablePuzzle .row--active .cel {
-    animation: pulse 500ms infinite alternate;
+    animation: pulse 300ms infinite alternate;
 }
-.tablePuzzle .row .cel--active {
-    /*animation: pulse 5s infinite;*/
-}
-
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 2px rgba(0,0,0,1);
+    box-shadow: 0 0 1px rgba(0,0,0,1);
   }
   100% {
-    box-shadow: 0 0 2px rgba(150,150,150,1);
+    box-shadow: 0 0 1px rgba(204,255,0,1);
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .table {
+    width: 370px;
+    grid-gap: 2px;
+  }
+  .cel {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tableSolution {
+    left: 50%;
+    transform: translateX(-50%);
+    grid-gap: 1px;
+    width: 65px;
+  }
+
+  .tableSolution .cel {
+      width: 10px;
+      height: 10px;
+  }
+}

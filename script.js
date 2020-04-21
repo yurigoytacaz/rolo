@@ -1,3 +1,5 @@
+const tableSolution = document.querySelector('.tableSolution');
+const tablePuzzle = document.querySelector('.tablePuzzle');
 const gridSolution = [[0, 1, 1, 1, 1, 0], [0, 0, 1, 1, 0, 0], [0, 0, 1, 1, 0, 0], [0, 0, 1, 1, 0, 0], [0, 0, 1, 1, 0, 0], [0, 1, 1, 1, 1, 0]];
 const gridPuzzle = [];
 const colors = [{
@@ -7,7 +9,8 @@ const colors = [{
   "backgroundColor": "#cf0",
   "color": "black"
 }];
-let rowSelected = 1;
+let rowSelected = 0;
+let done = false; // console.log(done)
 
 function matchTables() {
   for (let r = 0; r < gridSolution.length; r++) {
@@ -23,7 +26,9 @@ function matchTables() {
     }
   }
 
-  console.log('Ganhou mizeravi');
+  done = true;
+  document.querySelector('.wrap').classList.add('wrap--done');
+  console.log('Ganhou, mizeravi!');
   return true;
 }
 
@@ -31,16 +36,28 @@ document.addEventListener('keydown', function (e) {
   var code = e.keyCode ? e.keyCode : e.which; // console.log(code);
 
   switch (code) {
+    case 27:
+      // esc
+      if (done) {
+        document.querySelector('.wrap').classList.remove('wrap--done');
+        shuffleTable();
+        colorTable(gridPuzzle, tablePuzzle);
+        done = false;
+      } else {
+        if (window.confirm("Do you really want to SHUFFLE it?")) {
+          shuffleTable();
+          colorTable(gridPuzzle, tablePuzzle);
+        }
+      }
+
+      break;
+
     case 87:
       // w
-      rowSelected = Math.max(0, rowSelected - 1);
-      selectRow(document.querySelector('.tablePuzzle'));
       break;
 
     case 83:
       // s
-      rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
-      selectRow(document.querySelector('.tablePuzzle'));
       break;
 
     case 65:
@@ -54,23 +71,27 @@ document.addEventListener('keydown', function (e) {
     case 37:
       // left
       spinRow(rowSelected, -1);
-      colorTable(gridPuzzle, document.querySelector('.tablePuzzle'));
+      colorTable(gridPuzzle, tablePuzzle);
       matchTables();
       break;
 
     case 38:
       // top
+      rowSelected = Math.max(0, rowSelected - 1);
+      selectRow(tablePuzzle);
       break;
 
     case 39:
       // right
       spinRow(rowSelected, 1);
-      colorTable(gridPuzzle, document.querySelector('.tablePuzzle'));
+      colorTable(gridPuzzle, tablePuzzle);
       matchTables();
       break;
 
     case 40:
       // down
+      rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
+      selectRow(tablePuzzle);
       break;
   }
 });
@@ -104,17 +125,14 @@ function shuffleTable() {
     for (let c = 0; c < currentRow.length; c++) {
       gridPuzzle[r].push(currentRow[c]);
     }
-  } // for (let r = 0; r < gridSolution.length; r++) {
-  // spinRow(gridSolution[r], getRandomInt(1,5));
-  // }
+  }
 
+  for (let r = 0; r < gridSolution.length; r++) {
+    // console.log(r);
+    spinRow(r, getRandomInt(1, 5));
+  }
 
-  spinRow(0, getRandomInt(1, 5));
-  spinRow(1, getRandomInt(1, 5));
-  spinRow(2, getRandomInt(1, 5));
-  spinRow(3, getRandomInt(1, 5));
-  spinRow(4, getRandomInt(1, 5));
-  spinRow(5, getRandomInt(1, 5));
+  console.log('shuffled');
 }
 
 function spinRow(r, offset) {
@@ -148,8 +166,7 @@ function colorTable(grid, baseElement) {
 }
 
 console.log("RUNNING >>>> ");
-colorTable(gridSolution, document.querySelector('.tableSolution'));
+colorTable(gridSolution, tableSolution);
 shuffleTable();
-colorTable(gridPuzzle, document.querySelector('.tablePuzzle'));
-console.log("DONE <<<<"); // @TODO randomize tablePuzzle
-// @TODO select col
+colorTable(gridPuzzle, tablePuzzle);
+console.log("DONE <<<<"); // @TODO select col
