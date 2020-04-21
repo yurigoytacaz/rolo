@@ -1,3 +1,10 @@
+:root {
+  --dot-size: 100px;
+  --gap: 5px;
+  --rows: 6;
+  --grid-size: calc( calc( var(--dot-size) * var(--rows) ) + calc( var(--gap) * calc(var(--rows)-1) ) );
+}
+
 html,
 body {
   width: 100%;
@@ -47,22 +54,22 @@ body {
 
 .table {
   display: grid;
-  grid-gap: 5px;
-  width: 625px;
+  grid-gap: var(--gap);
+  width: var(--grid-size);
   margin: 0 auto;
 }
 
 .row {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-gap: 5px;
+  grid-template-columns: repeat(var(--rows), 1fr);
+  grid-gap: var(--gap);
 }
 
 .cel {
   display: flex;
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: var(--dot-size);
   align-items: center;
   justify-content: center;
   font-size: 14px;
@@ -75,12 +82,12 @@ body {
   position: absolute;
   top: 30px;
   left: 30px;
-  width: 155px;
-  grid-gap: 2px;
+  width: calc(var(--grid-size)/4);
+  grid-gap: calc(var(--gap)/4);
 }
 
 .tableSolution .row {
-  grid-gap: 1px;
+  grid-gap: calc(var(--gap)/4);
 }
 
 .tableSolution .cel {
@@ -90,21 +97,56 @@ body {
   overflow: hidden;
 }
 
-.tablePuzzle .row--active .cel {
-  animation: pulse 300ms infinite alternate;
+.row--active {
+  position: relative;
+}
+
+.row--active:before,
+.row--active:after {
+  position: absolute;
+  top: 0;
+  display: flex;
+  height: var(--dot-size);
+  align-items: center;
+  font-size: 50px;
+  color: #999;
+}
+
+.row--active:before {
+  content: '(';
+  left: -18px;
+}
+
+.row--active:after {
+  content: ')';
+  right: -18px;
 }
 
 .cell--selected {
-  animation: pulse 300ms infinite alternate;
+  position: relative;
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 2px rgba(0,0,0,1);
-  }
-  100% {
-    box-shadow: 0 0 3px rgba(204,255,0,1);
-  }
+.row:first-child .cell--selected:before,
+.row:last-child .cell--selected:before {
+  content: '(';
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--dot-size);
+  color: #999;
+  font-size: 50px;
+  line-height: 1;
+}
+
+.row:first-child .cell--selected:before {
+  top: -35px;
+  transform: rotate(90deg) translateY(-4px);
+}
+
+.row:last-child .cell--selected:before {
+  bottom: -35px;
+  transform: rotate(-90deg) translateY(-4px);
 }
 
 @media screen and (max-width: 1024px) {
@@ -112,6 +154,7 @@ body {
     width: 370px;
     grid-gap: 2px;
   }
+
   .cel {
     width: 60px;
     height: 60px;
