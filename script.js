@@ -50,6 +50,7 @@ const colors = [{
   "color": "black"
 }];
 let rowSelected = 0;
+let colSelected = 0;
 let done = false; // console.log(done)
 
 function matchTables() {
@@ -105,11 +106,14 @@ document.addEventListener('keydown', function (e) {
       break;
 
     case KEY_A:
-      // a
+      colSelected = Math.max(0, colSelected - 1);
+      selectCol(tablePuzzle);
       break;
 
     case KEY_D:
-      // d
+      colSelected = Math.min(gridSolution[0].length - 1, colSelected + 1);
+      selectCol(tablePuzzle);
+      
       break;
 
     case KEY_LEFT:
@@ -166,7 +170,22 @@ function selectRow(baseElement) {
   }
 }
 
-function selectCol(baseElement) {}
+function selectCol(baseElement) {
+  const allRows = baseElement.querySelectorAll('.row');
+
+  for (let i = 0; i < allRows.length; i++) {
+    const row = allRows[i].children;
+    for(let j = 0; j < row.length; j++) {
+      const cell = row[j];
+
+      if(j === colSelected) {
+        cell.classList.add('cell--selected');
+      } else {
+        cell.classList.remove('cell--selected');
+      }
+    }
+  }
+}
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
