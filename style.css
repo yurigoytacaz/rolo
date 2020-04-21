@@ -84,14 +84,18 @@ body {
 }
 
 .tableSolution .cel {
-    width: 25px;
-    height: 25px;
-    text-indent: -9999px;
-    overflow: hidden;
+  width: 25px;
+  height: 25px;
+  text-indent: -9999px;
+  overflow: hidden;
 }
 
 .tablePuzzle .row--active .cel {
-    animation: pulse 300ms infinite alternate;
+  animation: pulse 300ms infinite alternate;
+}
+
+.cell--selected {
+  animation: pulse 300ms infinite alternate;
 }
 
 @keyframes pulse {

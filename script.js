@@ -1,3 +1,13 @@
+const KEY_ESC = 27;
+const KEY_W = 87;
+const KEY_S = 83;
+const KEY_A = 65;
+const KEY_D = 68;
+const KEY_LEFT = 37;
+const KEY_TOP = 38;
+const KEY_RIGHT = 39;
+const KEY_DOWN = 40;
+
 const tableSolution = document.querySelector('.tableSolution');
 const tablePuzzle = document.querySelector('.tablePuzzle');
 const gridSolution = [[1, 2, 2, 2, 2, 1], [1, 4, 0, 0, 5, 1], [1, 4, 0, 0, 5, 1], [1, 4, 0, 0, 5, 1], [1, 4, 0, 0, 5, 1], [1, 3, 3, 3, 3, 1]]; // const gridSolution = [
@@ -40,6 +50,7 @@ const colors = [{
   "color": "black"
 }];
 let rowSelected = 0;
+let colSelected = 0;
 let done = false; // console.log(done)
 
 function matchTables() {
@@ -71,7 +82,7 @@ document.addEventListener('keydown', function (e) {
   var code = e.keyCode ? e.keyCode : e.which; // console.log(code);
 
   switch (code) {
-    case 27:
+    case KEY_ESC:
       // esc
       if (done) {
         success();
@@ -86,23 +97,26 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 87:
+    case KEY_W:
       // w
       break;
 
-    case 83:
+    case KEY_S:
       // s
       break;
 
-    case 65:
-      // a
+    case KEY_A:
+      colSelected = Math.max(0, colSelected - 1);
+      selectCol(tablePuzzle);
       break;
 
-    case 68:
-      // d
+    case KEY_D:
+      colSelected = Math.min(gridSolution[0].length - 1, colSelected + 1);
+      selectCol(tablePuzzle);
+      
       break;
 
-    case 37:
+    case KEY_LEFT:
       // left
       if (done === false) {
         spinRow(rowSelected, -1);
@@ -112,7 +126,7 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 38:
+    case KEY_TOP:
       // top
       if (done === false) {
         rowSelected = Math.max(0, rowSelected - 1);
@@ -121,7 +135,7 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 39:
+    case KEY_RIGHT:
       // right
       if (done === false) {
         spinRow(rowSelected, 1);
@@ -131,7 +145,7 @@ document.addEventListener('keydown', function (e) {
 
       break;
 
-    case 40:
+    case KEY_DOWN:
       // down
       if (done === false) {
         rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
@@ -156,7 +170,22 @@ function selectRow(baseElement) {
   }
 }
 
-function selectCol(baseElement) {}
+function selectCol(baseElement) {
+  const allRows = baseElement.querySelectorAll('.row');
+
+  for (let i = 0; i < allRows.length; i++) {
+    const row = allRows[i].children;
+    for(let j = 0; j < row.length; j++) {
+      const cell = row[j];
+
+      if(j === colSelected) {
+        cell.classList.add('cell--selected');
+      } else {
+        cell.classList.remove('cell--selected');
+      }
+    }
+  }
+}
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
