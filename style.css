@@ -15,7 +15,7 @@ body {
   box-sizing: border-box;
 }
 
-.wrap:before {
+.success {
   content: '';
   position: fixed;
   z-index: 9;
@@ -23,31 +23,24 @@ body {
   left: 0;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,.7);
-}
-
-.wrap:after {
-  content: 'Boooooaaa!';
-  position: absolute;
-  z-index: 10;
   color: #fff;
-  font-size: 40px;
   text-align: center;
   font-family: monospace;
-}
-
-.wrap:before,
-.wrap:after {
+  background-color: rgba(0,0,0,.9);
   opacity: 0;
   visibility: hidden;
   transition: all 300ms ease;
 }
 
-.wrap--done:before,
-.wrap--done:after {
+.success__title {
+  font-size: 40px;
+}
+
+.success--on {
   opacity: 1;
   visibility: visible;
 }
@@ -103,10 +96,10 @@ body {
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 1px rgba(0,0,0,1);
+    box-shadow: 0 0 2px rgba(0,0,0,1);
   }
   100% {
-    box-shadow: 0 0 1px rgba(204,255,0,1);
+    box-shadow: 0 0 3px rgba(204,255,0,1);
   }
 }
 
