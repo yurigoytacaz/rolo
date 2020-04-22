@@ -1,22 +1,22 @@
-// @TODO spin col
 // @TODO add controls to screen
 
 const gridSolution = [
-  [1,2,2,2,2,1],
-  [1,4,0,0,5,1],
-  [1,4,0,0,5,1],
-  [1,4,0,0,5,1],
-  [1,4,0,0,5,1],
-  [1,3,3,3,3,1]
+  [6,6,6,6,6,6],
+  [6,6,6,6,6,6],
+  [0,0,6,6,0,0],
+  [0,0,6,6,0,0],
+  [6,6,6,6,6,6],
+  [6,6,6,6,6,6]
 ];
 
 const colors = [
+  { "backgroundColor": "#CCCCCC", "color": "black" },
   { "backgroundColor": "#FFEC80", "color": "black" },
   { "backgroundColor": "#86D1E9", "color": "white" },
   { "backgroundColor": "#B5FFA2", "color": "black" },
   { "backgroundColor": "#DAA1FF", "color": "black" },
   { "backgroundColor": "#F79B7F", "color": "white" },
-  { "backgroundColor": "#cccccc", "color": "black" },
+  { "backgroundColor": "#CCFF00", "color": "black" },
 ];
 
 const gridElement = document.querySelector('.grid');
@@ -89,15 +89,6 @@ function selectRow(baseElement) {
       currentRow.classList.remove('row--active');
     }
   }
-
-  // remove "selected" from cells
-  for (let i = 0; i < allRows.length; i++) {
-    const row = allRows[i].children;
-    for(let j = 0; j < row.length; j++) {
-      const cell = row[j];
-      cell.classList.remove('cell--selected');
-    }
-  }
 }
 
 function selectCol(baseElement) {
@@ -114,12 +105,6 @@ function selectCol(baseElement) {
         cell.classList.remove('cell--selected');
       }
     }
-  }
-
-  // remove "active" from rows
-  for (let r = 0; r < allRows.length; r++) {
-    const currentRow = allRows[r];
-    currentRow.classList.remove('row--active');
   }
 }
 
@@ -141,8 +126,10 @@ function shuffleTable() {
   }
 
   for (let r = 0; r < gridSolution.length; r++) {
-    // console.log(r);
-    spinRow(r, getRandomInt(1, 5));
+    spinRow(r, getRandomInt(1, 3));
+    spinColumn(r, getRandomInt(1, 3));
+    spinRow(r, getRandomInt(3, 5));
+    spinColumn(r, getRandomInt(3, 5));
   }
 
   console.log('shuffled');
@@ -175,7 +162,7 @@ function spinColumn(c, offset) {
     const newVal = (row.length + i - offset) % row.length;
     row[i] = rowClone[newVal];
   }
-  
+
   gridTransposed = transpose(gridTransposed);
   for (let i = 0; i < gridPuzzle[0].length; i++) {
   	gridPuzzle[i] = gridTransposed[i];
@@ -225,7 +212,7 @@ const KEY_S = 83;
 const KEY_A = 65;
 const KEY_D = 68;
 const KEY_LEFT = 37;
-const KEY_TOP = 38;
+const KEY_UP = 38;
 const KEY_RIGHT = 39;
 const KEY_DOWN = 40;
 const KEY_SPACE = 32;
@@ -240,7 +227,6 @@ document.addEventListener('keydown', function (e) {
     break;
 
     case KEY_ESC:
-      // esc
       if (done) {
         success();
         done = false;
@@ -254,15 +240,17 @@ document.addEventListener('keydown', function (e) {
     break;
 
     case KEY_W:
-      spinColumn(colSelected, -1);
-      colorTable(gridPuzzle, tablePuzzle);
-      matchTables();
+      if (done === false) {
+        rowSelected = Math.max(0, rowSelected - 1);
+        selectRow(tablePuzzle);
+      }
     break;
 
     case KEY_S:
-      spinColumn(colSelected, 1);
-      colorTable(gridPuzzle, tablePuzzle);
-      matchTables();
+      if (done === false) {
+        rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
+        selectRow(tablePuzzle);
+      }
     break;
 
     case KEY_A:
@@ -275,18 +263,23 @@ document.addEventListener('keydown', function (e) {
       selectCol(tablePuzzle);
     break;
 
+    case KEY_UP:
+      spinColumn(colSelected, -1);
+      colorTable(gridPuzzle, tablePuzzle);
+      matchTables();
+    break;
+
+    case KEY_DOWN:
+      spinColumn(colSelected, 1);
+      colorTable(gridPuzzle, tablePuzzle);
+      matchTables();
+    break;
+
     case KEY_LEFT:
       if (done === false) {
         spinRow(rowSelected, -1);
         colorTable(gridPuzzle, tablePuzzle);
         matchTables();
-      }
-    break;
-
-    case KEY_TOP:
-      if (done === false) {
-        rowSelected = Math.max(0, rowSelected - 1);
-        selectRow(tablePuzzle);
       }
     break;
 
@@ -298,19 +291,15 @@ document.addEventListener('keydown', function (e) {
       }
     break;
 
-    case KEY_DOWN:
-      if (done === false) {
-        rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
-        selectRow(tablePuzzle);
-      }
-    break;
   }
 });
 
-console.log("RUNNING >>>> ");
+console.log("ROLLING >>>> ");
 colorTable(gridSolution, tableSolution);
 shuffleTable();
 colorTable(gridPuzzle, tablePuzzle);
-rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
+rowSelected = Math.min(0, rowSelected + 1);
 selectRow(tablePuzzle);
-console.log("DONE <<<<");
+colSelected = Math.max(0, colSelected - 1);
+selectCol(tablePuzzle);
+console.log("ROLLED <<<<");
