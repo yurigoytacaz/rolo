@@ -1,20 +1,21 @@
 // @TODO add controls to screen
+// @TODO load new layouts
 
 const gridSolution = [
-  [6,6,6,6,6,6],
-  [6,6,6,6,6,6],
-  [0,0,6,6,0,0],
-  [0,0,6,6,0,0],
-  [6,6,6,6,6,6],
-  [6,6,6,6,6,6]
+  [1,1,1,1,1,1],
+  [1,1,1,1,1,1],
+  [1,1,2,2,1,1],
+  [1,1,2,2,1,1],
+  [1,1,1,1,1,1],
+  [1,1,1,1,1,1]
 ];
 
 const colors = [
   { "backgroundColor": "#CCCCCC", "color": "black" },
+  { "backgroundColor": "#DAA1FF", "color": "black" },
+  { "backgroundColor": "#B5FFA2", "color": "black" },
   { "backgroundColor": "#FFEC80", "color": "black" },
   { "backgroundColor": "#86D1E9", "color": "white" },
-  { "backgroundColor": "#B5FFA2", "color": "black" },
-  { "backgroundColor": "#DAA1FF", "color": "black" },
   { "backgroundColor": "#F79B7F", "color": "white" },
   { "backgroundColor": "#CCFF00", "color": "black" },
 ];

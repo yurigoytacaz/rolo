@@ -126,6 +126,24 @@ body {
   transform: rotate(-90deg) translateY(-4px);
 }
 
+/*
+.row--active .cel {
+    animation: pulse 300ms infinite alternate;
+}
+.cell--selected {
+    animation: pulse 300ms infinite alternate;
+}
+
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 1px 1px rgba(0,0,0,1);
+  }
+  100% {
+    box-shadow: 0 0 3px 1px rgba(0,0,0,.3);
+  }
+}*/
+
 .success {
   content: '';
   position: fixed;
