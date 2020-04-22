@@ -116,7 +116,7 @@ function selectCol(baseElement) {
     }
   }
 
-  // rmeove "active" from rows
+  // remove "active" from rows
   for (let r = 0; r < allRows.length; r++) {
     const currentRow = allRows[r];
     currentRow.classList.remove('row--active');
@@ -162,6 +162,32 @@ function spinRow(r, offset) {
   }
 }
 
+function spinColumn(c, offset) {
+	let gridTransposed = transpose(gridPuzzle);
+  const row = gridTransposed[c];
+  const rowClone = [];
+
+  for (let i = 0; i < row.length; i++) {
+    rowClone.push(row[i]);
+  }
+
+  for (let i = 0; i < row.length; i++) {
+    const newVal = (row.length + i - offset) % row.length;
+    row[i] = rowClone[newVal];
+  }
+  
+  gridTransposed = transpose(gridTransposed);
+  for (let i = 0; i < gridPuzzle[0].length; i++) {
+  	gridPuzzle[i] = gridTransposed[i];
+  }
+}
+
+function transpose(g) {
+  return Object.keys(g[0]).map(function(c) {
+    return g.map(function(r) { return r[c]; });
+  });
+}
+
 function colorTable(grid, baseElement) {
   const allRows = baseElement.querySelectorAll('.row');
 
@@ -184,8 +210,8 @@ function colorTable(grid, baseElement) {
   }
 }
 
-function debugar(){
-  if (debug == true){
+function debugar() {
+  if (debug == true) {
     debug = false;
   } else {
     debug = true;
@@ -210,7 +236,7 @@ document.addEventListener('keydown', function (e) {
 
   switch (code) {
     case KEY_SPACE:
-      debugar()
+      debugar();
     break;
 
     case KEY_ESC:
@@ -228,11 +254,15 @@ document.addEventListener('keydown', function (e) {
     break;
 
     case KEY_W:
-      // w
+      spinColumn(colSelected, -1);
+      colorTable(gridPuzzle, tablePuzzle);
+      matchTables();
     break;
 
     case KEY_S:
-      // s
+      spinColumn(colSelected, 1);
+      colorTable(gridPuzzle, tablePuzzle);
+      matchTables();
     break;
 
     case KEY_A:
@@ -243,11 +273,9 @@ document.addEventListener('keydown', function (e) {
     case KEY_D:
       colSelected = Math.min(gridSolution[0].length - 1, colSelected + 1);
       selectCol(tablePuzzle);
-
     break;
 
     case KEY_LEFT:
-      // left
       if (done === false) {
         spinRow(rowSelected, -1);
         colorTable(gridPuzzle, tablePuzzle);
@@ -256,7 +284,6 @@ document.addEventListener('keydown', function (e) {
     break;
 
     case KEY_TOP:
-      // top
       if (done === false) {
         rowSelected = Math.max(0, rowSelected - 1);
         selectRow(tablePuzzle);
@@ -264,7 +291,6 @@ document.addEventListener('keydown', function (e) {
     break;
 
     case KEY_RIGHT:
-      // right
       if (done === false) {
         spinRow(rowSelected, 1);
         colorTable(gridPuzzle, tablePuzzle);
@@ -273,7 +299,6 @@ document.addEventListener('keydown', function (e) {
     break;
 
     case KEY_DOWN:
-      // down
       if (done === false) {
         rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
         selectRow(tablePuzzle);
