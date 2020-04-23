@@ -1,15 +1,6 @@
 // @TODO add controls to screen
 // @TODO load new layouts
 
-let gridSolution = [
-  [1,1,1,1,1,1],
-  [1,1,1,1,1,1],
-  [1,1,2,2,1,1],
-  [1,1,2,2,1,1],
-  [1,1,1,1,1,1],
-  [1,1,1,1,1,1]
-];
-
 const colors = [
   { "backgroundColor": "#CCCCCC", "color": "black" },
   { "backgroundColor": "#DAA1FF", "color": "black" },
@@ -20,28 +11,45 @@ const colors = [
   { "backgroundColor": "#CCFF00", "color": "black" },
 ];
 
-const gridElement = document.querySelector('.grid');
-const gridSize = gridSolution.length;
 const gridPuzzle = [];
+let gridIndex = 0;
+
+const gridElement = document.querySelector('.grid');
+let tableSolution = document.querySelector('.tableSolution');
+let tablePuzzle = document.querySelector('.tablePuzzle');
+
+let gridSolution = [
+  [1,1,1,1,1,1],
+  [1,1,1,1,1,1],
+  [1,1,1,1,1,1],
+  [1,1,1,1,1,1],
+  [1,1,1,1,1,1],
+  [1,1,1,1,1,1]
+];
+let gridSize = gridSolution.length;
 
 let rowSelected = 0;
 let colSelected = 0;
-let debug = false;
-let html = "";
 let slider = null;
+
 let done = false;
+let debug = false;
 
-renderGrid('tablePuzzle');
-renderGrid('tableSolution');
+const appendInnerHtml = (elem, html) => elem.innerHTML += html;
 
-const tableSolution = document.querySelector('.tableSolution');
-const tablePuzzle = document.querySelector('.tablePuzzle');
-
-function renderGrid(classname) {
+function render() {
   let root = document.documentElement;
   root.style.setProperty('--rows', gridSize);
+  
+  appendInnerHtml(gridElement, renderGrid('tablePuzzle'));
+  appendInnerHtml(gridElement, renderGrid('tableSolution'));
 
-  html += `<div class="table `+classname+`">`;
+  tableSolution = document.querySelector('.tableSolution');
+  tablePuzzle = document.querySelector('.tablePuzzle');
+}
+
+function renderGrid(classname) {
+  let html = `<div class="table ` + classname + `">`;
   for (let row = 0; row < gridSize; row++) {
       html += `<div class="row">`;
       for (let column = 0; column < gridSize; column++) {
@@ -51,7 +59,7 @@ function renderGrid(classname) {
       html += "</div>";
   }
   html += "</div>";
-  gridElement.innerHTML = html;
+  return html;
 }
 
 function matchTables() {
@@ -62,21 +70,20 @@ function matchTables() {
       const v = gridSolution[r][c];
       const p = gridPuzzle[r][c];
 
-      if (v != p) {
+      if (v != p)
         return false;
-      }
     }
   }
 
-  done = true;
-  success();
-  console.log('Ganhou, mizeravi!');
   return true;
 }
 
-function success() {
+function showSuccess() {
   document.querySelector('.success').classList.add('success--on');
-  done = false;
+}
+
+function hideSuccess() {
+  document.querySelector('.success').classList.remove('success--on');
 }
 
 function selectRow(baseElement) {
@@ -98,10 +105,11 @@ function selectCol(baseElement) {
 
   for (let i = 0; i < allRows.length; i++) {
     const row = allRows[i].children;
-    for(let j = 0; j < row.length; j++) {
+    
+    for (let j = 0; j < row.length; j++) {
       const cell = row[j];
 
-      if(j === colSelected) {
+      if (j === colSelected) {
         cell.classList.add('cell--selected');
       } else {
         cell.classList.remove('cell--selected');
@@ -171,11 +179,7 @@ function spinColumn(c, offset) {
   }
 }
 
-function transpose(g) {
-  return Object.keys(g[0]).map(function(c) {
-    return g.map(function(r) { return r[c]; });
-  });
-}
+const transpose = (g) => Object.keys(g[0]).map((c) => g.map((r) => r[c]));
 
 function colorTable(grid, baseElement) {
   const allRows = baseElement.querySelectorAll('.row');
@@ -187,7 +191,7 @@ function colorTable(grid, baseElement) {
     for (let c = 0; c < allCels.length; c++) {
       const currentCel = allCels[c];
 
-      if (debug == true) {
+      if (debug) {
         currentCel.innerHTML = r + "," + c;
       } else {
         currentCel.innerHTML = '';
@@ -200,24 +204,32 @@ function colorTable(grid, baseElement) {
 }
 
 function debugar() {
-  if (debug == true) {
-    debug = false;
-  } else {
-    debug = true;
-  }
-  console.log(debug)
+  debug = !debug;
+  console.log(debug);
 }
 
-function start(){
+function start(grid) {
   console.log("ROLLING >>>> ");
+
+  gridSolution = grid;
+
   colorTable(gridSolution, tableSolution);
   shuffleTable();
   colorTable(gridPuzzle, tablePuzzle);
+
   rowSelected = Math.min(0, rowSelected + 1);
   selectRow(tablePuzzle);
+  
   colSelected = Math.max(0, colSelected - 1);
   selectCol(tablePuzzle);
+
   console.log("ROLLED <<<<");
 }
 
-start();
+function initialize() {
+  render();
+
+  start(grids[gridIndex]);
+}
+
+initialize();
