@@ -1,154 +1,138 @@
+const KEY_ENTER = 13;
 const KEY_ESC = 27;
-const KEY_W = 87;
-const KEY_S = 83;
-const KEY_A = 65;
-const KEY_D = 68;
+const KEY_SPACE = 32;
 const KEY_LEFT = 37;
 const KEY_UP = 38;
 const KEY_RIGHT = 39;
 const KEY_DOWN = 40;
-const KEY_SPACE = 32;
-const KEY_NUMZERO = 48
+const KEY_NUMZERO = 48;
+const KEY_A = 65;
+const KEY_D = 68;
+const KEY_S = 83;
+const KEY_W = 87;
 
 document.addEventListener('keydown', function (e) {
   var code = e.keyCode ? e.keyCode : e.which;
   console.log(code);
 
-  switch (code) {
-    case KEY_SPACE:
-      debugar();
-    break;
+  if (code === KEY_SPACE) {
+    debugar();
+    return;
+  }
 
-    case KEY_ESC:
-      if (done) {
-        success();
-        done = false;
-      } else {
-        if (window.confirm("Do you really want to SHUFFLE it?")) {
-          document.querySelector('.success').classList.remove('success--on');
-          shuffleTable();
-          colorTable(gridPuzzle, tablePuzzle);
-        }
-      }
-    break;
+  if (code === KEY_ESC) {
+    if (done || window.confirm("Do you really want to SHUFFLE it?")) {
+      hideSuccess();
+      shuffleTable();
+      colorTable(gridPuzzle, tablePuzzle);
+    }
+  }
 
-    case KEY_W:
-      if (done === false) {
-        selectUp();
-      }
-    break;
+  if (code === KEY_ENTER) {
+    if (done) {
+      hideSuccess();
+      start(grids[++gridIndex]);
+    }
+  }
 
-    case KEY_S:
-      if (done === false) {
-        selectDown();
-      }
-    break;
+  if (code >= KEY_NUMZERO && code < KEY_A) {
+    navigation(code);
+  }
 
-    case KEY_A:
-      if (done === false) {
-        selectLeft();
-      }
-    break;
+  if ((code >= KEY_LEFT && code <= KEY_DOWN) || code >= KEY_A && code <= KEY_W) {
+    control(code);
+  }
 
-    case KEY_D:
-      if (done === false) {
-        selectRight();
-      }
-    break;
-
-    case KEY_UP:
-      if (done === false) {
-        moveUp();
-      }
-    break;
-
-    case KEY_DOWN:
-      if (done === false) {
-        moveDown();
-      }
-    break;
-
-    case KEY_LEFT:
-      if (done === false) {
-        moveLeft();
-      }
-    break;
-
-    case KEY_RIGHT:
-      if (done === false) {
-        moveRight();
-      }
-    break;
-
-    case KEY_NUMZERO+1:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid1
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+2:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid2
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+3:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid3
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+4:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid4
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+5:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid5
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+6:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid6
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+7:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid7
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+8:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid8
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+9:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid9
-        start()
-      }
-    break;
-
-    case KEY_NUMZERO+0:
-      if (window.confirm("Do you really want to RELOAD it?")) {
-        gridSolution = grid0
-        start()
-      }
-    break;
-
+  if (done) {
+    showSuccess();
+    console.log('Ganhou, mizeravi!');
   }
 });
+
+function navigation(code) {
+  if (!done && !window.confirm("Do you really want to RELOAD it?"))
+    return;
+
+  switch (code) {
+    case KEY_NUMZERO + 1:
+      gridIndex = 0;
+      break;
+
+    case KEY_NUMZERO + 2:
+      gridIndex = 1;
+      break;
+
+    case KEY_NUMZERO + 3:
+      gridIndex = 2;
+      break;
+
+    case KEY_NUMZERO + 4:
+      gridIndex = 3;
+      break;
+
+    case KEY_NUMZERO + 5:
+      gridIndex = 4;
+      break;
+
+    case KEY_NUMZERO + 6:
+      gridIndex = 5;
+      break;
+
+    case KEY_NUMZERO + 7:
+      gridIndex = 6;
+      break;
+
+    case KEY_NUMZERO + 8:
+      gridIndex = 7;
+      break;
+
+    case KEY_NUMZERO + 9:
+      gridIndex = 8;
+      break;
+
+    case KEY_NUMZERO + 0:
+      gridIndex = 9;
+      break;
+  }
+
+  start(grids[gridIndex]);
+}
+
+function control(code) {
+  if (done)
+    return;
+
+  switch (code) {
+    case KEY_W:
+      selectUp();
+      break;
+
+    case KEY_S:
+      selectDown();
+      break;
+
+    case KEY_A:
+      selectLeft();
+      break;
+
+    case KEY_D:
+      selectRight();
+      break;
+
+    case KEY_UP:
+      moveUp();
+      break;
+
+    case KEY_DOWN:
+      moveDown();
+      break;
+
+    case KEY_LEFT:
+      moveLeft();
+      break;
+
+    case KEY_RIGHT:
+      moveRight();
+      break;
+  }
+}
