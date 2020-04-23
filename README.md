@@ -5,7 +5,7 @@ Back in 2008 I used to play a game with the same name (Rolo) developed by GetApp
 
 The game is in its first release (0.0.1alpha), but its playable, at least.
 
-Still need to add new maps/layouts, add controls so its playable in mobile devices, maybe a timer, a ranking, someday, etc...
+Still need improvements, maybe a timer, a ranking, someday. Who knows?
 
 Thanks to lipe for putting up to me until 2am, [@fabioars](https://github.com/fabioars) for insisting that I try to code something in JavaSciprt (will get there), [@lucasmedi](https://github.com/lucasmedi), [@airstrike](https://github.com/airstrike).
 

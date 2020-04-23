@@ -1,6 +1,3 @@
-// @TODO add controls to screen
-// @TODO load new layouts
-
 const colors = [
   { "backgroundColor": "#CCCCCC", "color": "black" },
   { "backgroundColor": "#DAA1FF", "color": "black" },
@@ -60,6 +57,7 @@ function matchTables() {
   }
 
   done = true;
+  showSuccess();
 }
 
 function showSuccess() {
@@ -128,7 +126,7 @@ function shuffleTable() {
     spinColumn(gridPuzzle, r, getRandomInt(3, 5));
   }
 
-  console.log('shuffled');
+  // console.log('shuffled');
 }
 
 function spinRow(grid, r, offset) {
