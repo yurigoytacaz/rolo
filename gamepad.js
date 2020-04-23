@@ -42,7 +42,7 @@ function moveRight() {
 document.querySelector('.key__continue').addEventListener('click', function (e) {
   if (done) {
     hideSuccess();
-    start(grids[++gridIndex]);
+    start(levels[++gridIndex]);
   }
 });
 
