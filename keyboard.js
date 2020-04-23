@@ -45,7 +45,6 @@ document.addEventListener('keydown', function (e) {
 
   if (done) {
     showSuccess();
-    console.log('Ganhou, mizeravi!');
   }
 });
 

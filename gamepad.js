@@ -39,14 +39,14 @@ function moveRight() {
   matchTables();
 }
 
-document.querySelector('.key__continue').addEventListener('click', function (e) {
+document.querySelector('.key__continue').addEventListener('touchend', function (e) {
   if (done) {
     hideSuccess();
     start(levels[++gridIndex]);
   }
 });
 
-document.querySelector('.key__restart').addEventListener('click', function (e) {
+document.querySelector('.key__restart').addEventListener('touchend', function (e) {
   if (done && window.confirm("Do you really want to RESTART it?")) {
       hideSuccess();
       shuffleTable();
