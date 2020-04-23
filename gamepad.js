@@ -16,25 +16,25 @@ function selectRight() {
 }
 
 function moveUp() {
-  spinColumn(colSelected, -1);
+  spinColumn(gridPuzzle, colSelected, -1);
   colorTable(gridPuzzle, tablePuzzle);
   matchTables();
 }
 
 function moveDown() {
-  spinColumn(colSelected, 1);
+  spinColumn(gridPuzzle, colSelected, 1);
   colorTable(gridPuzzle, tablePuzzle);
   matchTables();
 }
 
 function moveLeft() {
-  spinRow(rowSelected, -1);
+  spinRow(gridPuzzle, rowSelected, -1);
   colorTable(gridPuzzle, tablePuzzle);
   matchTables();
 }
 
 function moveRight() {
-  spinRow(rowSelected, 1);
+  spinRow(gridPuzzle, rowSelected, 1);
   colorTable(gridPuzzle, tablePuzzle);
   matchTables();
 }

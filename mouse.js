@@ -26,13 +26,13 @@ slider.addEventListener('mousemove', (e) => {
   console.log(walk);
   if (walk > 0) {
     if (done === false) {
-      spinRow(rowSelected, 1);
+      spinRow(gridPuzzle, rowSelected, 1);
       colorTable(gridPuzzle, tablePuzzle);
       matchTables();
     }
   } else {
     if (done === false) {
-      spinRow(rowSelected, -1);
+      spinRow(gridPuzzle, rowSelected, -1);
       colorTable(gridPuzzle, tablePuzzle);
       matchTables();
     }
