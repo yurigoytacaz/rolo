@@ -12,21 +12,11 @@ const colors = [
 ];
 
 const gridPuzzle = [];
-let gridIndex = 0;
+let gridSolution = [];
 
 const gridElement = document.querySelector('.grid');
 let tableSolution = document.querySelector('.tableSolution');
 let tablePuzzle = document.querySelector('.tablePuzzle');
-
-let gridSolution = [
-  [1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1]
-];
-let gridSize = gridSolution.length;
 
 let rowSelected = 0;
 let colSelected = 0;
@@ -35,24 +25,23 @@ let slider = null;
 let done = false;
 let debug = false;
 
-const appendInnerHtml = (elem, html) => elem.innerHTML += html;
-
-function render() {
+function render(size) {
   let root = document.documentElement;
-  root.style.setProperty('--rows', gridSize);
+  root.style.setProperty('--rows', size);
 
-  appendInnerHtml(gridElement, renderGrid('tablePuzzle'));
-  appendInnerHtml(gridElement, renderGrid('tableSolution'));
+  setInnerHtml(gridElement, '');
+  appendInnerHtml(gridElement, renderGrid('tablePuzzle', size));
+  appendInnerHtml(gridElement, renderGrid('tableSolution', size));
 
   tableSolution = document.querySelector('.tableSolution');
   tablePuzzle = document.querySelector('.tablePuzzle');
 }
 
-function renderGrid(classname) {
+function renderGrid(classname, size) {
   let html = `<div class="table ` + classname + `">`;
-  for (let row = 0; row < gridSize; row++) {
+  for (let row = 0; row < size; row++) {
     html += `<div class="row">`;
-    for (let column = 0; column < gridSize; column++) {
+    for (let column = 0; column < size; column++) {
       html += `<div class="cel">`;
       html += "</div>";
     }
@@ -63,15 +52,10 @@ function renderGrid(classname) {
 }
 
 function matchTables() {
-  for (let r = 0; r < gridSolution.length; r++) {
-    const currentRow = gridSolution[r];
-
-    for (let c = 0; c < currentRow.length; c++) {
-      const v = gridSolution[r][c];
-      const p = gridPuzzle[r][c];
-
-      if (v != p)
-        return;
+  for (let i = 0; i < gridSolution.length; i++) {
+    for (let j = 0; j < gridSolution.length; j++) {
+      if (gridSolution[i][j] !== gridPuzzle[i][j])
+        return false;
     }
   }
 
@@ -138,17 +122,17 @@ function shuffleTable() {
   }
 
   for (let r = 0; r < gridSolution.length; r++) {
-    spinRow(r, getRandomInt(1, 3));
-    spinColumn(r, getRandomInt(1, 3));
-    spinRow(r, getRandomInt(3, 5));
-    spinColumn(r, getRandomInt(3, 5));
+    spinRow(gridPuzzle, r, getRandomInt(1, 3));
+    spinColumn(gridPuzzle, r, getRandomInt(1, 3));
+    spinRow(gridPuzzle, r, getRandomInt(3, 5));
+    spinColumn(gridPuzzle, r, getRandomInt(3, 5));
   }
 
   console.log('shuffled');
 }
 
-function spinRow(r, offset) {
-  const row = gridPuzzle[r];
+function spinRow(grid, r, offset) {
+  const row = grid[r];
   const rowClone = [];
 
   for (let c = 0; c < row.length; c++) {
@@ -161,27 +145,16 @@ function spinRow(r, offset) {
   }
 }
 
-function spinColumn(c, offset) {
-  let gridTransposed = transpose(gridPuzzle);
-  const row = gridTransposed[c];
-  const rowClone = [];
+function spinColumn(grid, c, offset) {
+  let gridTransposed = transpose(grid);
 
-  for (let i = 0; i < row.length; i++) {
-    rowClone.push(row[i]);
-  }
-
-  for (let i = 0; i < row.length; i++) {
-    const newVal = (row.length + i - offset) % row.length;
-    row[i] = rowClone[newVal];
-  }
+  spinRow(gridTransposed, c, offset);
 
   gridTransposed = transpose(gridTransposed);
-  for (let i = 0; i < gridPuzzle[0].length; i++) {
-    gridPuzzle[i] = gridTransposed[i];
+  for (let i = 0; i < grid[0].length; i++) {
+    grid[i] = gridTransposed[i];
   }
 }
-
-const transpose = (g) => Object.keys(g[0]).map((c) => g.map((r) => r[c]));
 
 function colorTable(grid, baseElement) {
   const allRows = baseElement.querySelectorAll('.row');
@@ -194,9 +167,9 @@ function colorTable(grid, baseElement) {
       const currentCel = allCels[c];
 
       if (debug) {
-        currentCel.innerHTML = r + "," + c;
+        setInnerHtml(currentCel, r + "," + c);
       } else {
-        currentCel.innerHTML = '';
+        setInnerHtml(currentCel, '');
       }
 
       currentCel.style.backgroundColor = colors[grid[r][c]].backgroundColor;
@@ -205,12 +178,20 @@ function colorTable(grid, baseElement) {
   }
 }
 
+const transpose = (g) => Object.keys(g[0]).map((c) => g.map((r) => r[c]));
+const setInnerHtml = (elem, html) => elem.innerHTML = html;
+const appendInnerHtml = (elem, html) => elem.innerHTML += html;
+
 function debugar() {
   debug = !debug;
   console.log(debug);
 }
 
 function start(grid) {
+  if (gridSolution.length !== grid.length) {
+    render(grid.length);
+  }
+
   console.log("ROLLING >>>> ");
 
   gridSolution = grid;
@@ -229,8 +210,8 @@ function start(grid) {
 }
 
 function initialize() {
-  render();
-  start(grids[gridIndex]);
+  const initialLevel = levels[levelIndex];
+  start(initialLevel);
 }
 
 initialize();

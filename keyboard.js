@@ -31,7 +31,7 @@ document.addEventListener('keydown', function (e) {
   if (code === KEY_ENTER) {
     if (done) {
       hideSuccess();
-      start(grids[++gridIndex]);
+      start(levels[++levelIndex]);
     }
   }
 
@@ -55,47 +55,47 @@ function navigation(code) {
 
   switch (code) {
     case KEY_NUMZERO + 1:
-      gridIndex = 0;
+      levelIndex = 0;
       break;
 
     case KEY_NUMZERO + 2:
-      gridIndex = 1;
+      levelIndex = 1;
       break;
 
     case KEY_NUMZERO + 3:
-      gridIndex = 2;
+      levelIndex = 2;
       break;
 
     case KEY_NUMZERO + 4:
-      gridIndex = 3;
+      levelIndex = 3;
       break;
 
     case KEY_NUMZERO + 5:
-      gridIndex = 4;
+      levelIndex = 4;
       break;
 
     case KEY_NUMZERO + 6:
-      gridIndex = 5;
+      levelIndex = 5;
       break;
 
     case KEY_NUMZERO + 7:
-      gridIndex = 6;
+      levelIndex = 6;
       break;
 
     case KEY_NUMZERO + 8:
-      gridIndex = 7;
+      levelIndex = 7;
       break;
 
     case KEY_NUMZERO + 9:
-      gridIndex = 8;
+      levelIndex = 8;
       break;
 
     case KEY_NUMZERO + 0:
-      gridIndex = 9;
+      levelIndex = (levelIndex !== 9 ? 9 : 10);
       break;
   }
 
-  start(grids[gridIndex]);
+  start(levels[levelIndex]);
 }
 
 function control(code) {
