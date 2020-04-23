@@ -19,12 +19,12 @@ let tableSolution = document.querySelector('.tableSolution');
 let tablePuzzle = document.querySelector('.tablePuzzle');
 
 let gridSolution = [
-  [1,1,1,1,1,1],
-  [1,1,1,1,1,1],
-  [1,1,1,1,1,1],
-  [1,1,1,1,1,1],
-  [1,1,1,1,1,1],
-  [1,1,1,1,1,1]
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1]
 ];
 let gridSize = gridSolution.length;
 
@@ -40,7 +40,7 @@ const appendInnerHtml = (elem, html) => elem.innerHTML += html;
 function render() {
   let root = document.documentElement;
   root.style.setProperty('--rows', gridSize);
-  
+
   appendInnerHtml(gridElement, renderGrid('tablePuzzle'));
   appendInnerHtml(gridElement, renderGrid('tableSolution'));
 
@@ -51,12 +51,12 @@ function render() {
 function renderGrid(classname) {
   let html = `<div class="table ` + classname + `">`;
   for (let row = 0; row < gridSize; row++) {
-      html += `<div class="row">`;
-      for (let column = 0; column < gridSize; column++) {
-        html += `<div class="cel">`;
-        html += "</div>";
-      }
+    html += `<div class="row">`;
+    for (let column = 0; column < gridSize; column++) {
+      html += `<div class="cel">`;
       html += "</div>";
+    }
+    html += "</div>";
   }
   html += "</div>";
   return html;
@@ -71,11 +71,11 @@ function matchTables() {
       const p = gridPuzzle[r][c];
 
       if (v != p)
-        return false;
+        return;
     }
   }
 
-  return true;
+  done = true;
 }
 
 function showSuccess() {
@@ -105,7 +105,7 @@ function selectCol(baseElement) {
 
   for (let i = 0; i < allRows.length; i++) {
     const row = allRows[i].children;
-    
+
     for (let j = 0; j < row.length; j++) {
       const cell = row[j];
 
@@ -125,6 +125,8 @@ function getRandomInt(min, max) {
 }
 
 function shuffleTable() {
+  done = false;
+
   // clone grid
   for (let r = 0; r < gridSolution.length; r++) {
     const currentRow = gridSolution[r];
@@ -160,7 +162,7 @@ function spinRow(r, offset) {
 }
 
 function spinColumn(c, offset) {
-	let gridTransposed = transpose(gridPuzzle);
+  let gridTransposed = transpose(gridPuzzle);
   const row = gridTransposed[c];
   const rowClone = [];
 
@@ -175,7 +177,7 @@ function spinColumn(c, offset) {
 
   gridTransposed = transpose(gridTransposed);
   for (let i = 0; i < gridPuzzle[0].length; i++) {
-  	gridPuzzle[i] = gridTransposed[i];
+    gridPuzzle[i] = gridTransposed[i];
   }
 }
 
@@ -219,7 +221,7 @@ function start(grid) {
 
   rowSelected = Math.min(0, rowSelected + 1);
   selectRow(tablePuzzle);
-  
+
   colSelected = Math.max(0, colSelected - 1);
   selectCol(tablePuzzle);
 

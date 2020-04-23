@@ -26,13 +26,10 @@ document.addEventListener('keydown', function (e) {
       shuffleTable();
       colorTable(gridPuzzle, tablePuzzle);
     }
-
-    done = false;
   }
 
   if (code === KEY_ENTER) {
     if (done) {
-      done = false;
       hideSuccess();
       start(grids[++gridIndex]);
     }
@@ -53,89 +50,89 @@ document.addEventListener('keydown', function (e) {
 });
 
 function navigation(code) {
-    if (!done && !window.confirm("Do you really want to RELOAD it?"))
-      return;
+  if (!done && !window.confirm("Do you really want to RELOAD it?"))
+    return;
 
-    switch (code) {
-      case KEY_NUMZERO + 1:
-        gridIndex = 0;
-        break;
+  switch (code) {
+    case KEY_NUMZERO + 1:
+      gridIndex = 0;
+      break;
 
-      case KEY_NUMZERO + 2:
-        gridIndex = 1;
-        break;
+    case KEY_NUMZERO + 2:
+      gridIndex = 1;
+      break;
 
-      case KEY_NUMZERO + 3:
-        gridIndex = 2;
-        break;
+    case KEY_NUMZERO + 3:
+      gridIndex = 2;
+      break;
 
-      case KEY_NUMZERO + 4:
-        gridIndex = 3;
-        break;
+    case KEY_NUMZERO + 4:
+      gridIndex = 3;
+      break;
 
-      case KEY_NUMZERO + 5:
-        gridIndex = 4;
-        break;
+    case KEY_NUMZERO + 5:
+      gridIndex = 4;
+      break;
 
-      case KEY_NUMZERO + 6:
-        gridIndex = 5;
-        break;
+    case KEY_NUMZERO + 6:
+      gridIndex = 5;
+      break;
 
-      case KEY_NUMZERO + 7:
-        gridIndex = 6;
-        break;
+    case KEY_NUMZERO + 7:
+      gridIndex = 6;
+      break;
 
-      case KEY_NUMZERO + 8:
-        gridIndex = 7;
-        break;
+    case KEY_NUMZERO + 8:
+      gridIndex = 7;
+      break;
 
-      case KEY_NUMZERO + 9:
-        gridIndex = 8;
-        break;
+    case KEY_NUMZERO + 9:
+      gridIndex = 8;
+      break;
 
-      case KEY_NUMZERO + 0:
-        gridIndex = 9;
-        break;
-    }
-
-    start(grids[gridIndex]);
+    case KEY_NUMZERO + 0:
+      gridIndex = 9;
+      break;
   }
+
+  start(grids[gridIndex]);
+}
 
 function control(code) {
-    if (done)
-      return;
+  if (done)
+    return;
 
-    switch (code) {
-      case KEY_W:
-        selectUp();
-        break;
+  switch (code) {
+    case KEY_W:
+      selectUp();
+      break;
 
-      case KEY_S:
-        selectDown();
-        break;
+    case KEY_S:
+      selectDown();
+      break;
 
-      case KEY_A:
-        selectLeft();
-        break;
+    case KEY_A:
+      selectLeft();
+      break;
 
-      case KEY_D:
-        selectRight();
-        break;
+    case KEY_D:
+      selectRight();
+      break;
 
-      case KEY_UP:
-        moveUp();
-        break;
+    case KEY_UP:
+      moveUp();
+      break;
 
-      case KEY_DOWN:
-        moveDown();
-        break;
+    case KEY_DOWN:
+      moveDown();
+      break;
 
-      case KEY_LEFT:
-        moveLeft();
-        break;
+    case KEY_LEFT:
+      moveLeft();
+      break;
 
-      case KEY_RIGHT:
-        moveRight();
-        break;
-    }
+    case KEY_RIGHT:
+      moveRight();
+      break;
   }
+}
