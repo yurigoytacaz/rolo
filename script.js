@@ -187,6 +187,10 @@ function debugar() {
   console.log(debug);
 }
 
+function solveIt() {
+  for (let i = 0; i < gridSolution.length; i++) { gridPuzzle[i] = gridSolution[i] }; rowSelected = 0; colSelected = 0; spinRow(0, 1); selectRow(tablePuzzle); selectCol(tablePuzzle); colorTable(gridPuzzle, tablePuzzle);
+}
+
 function start(grid) {
   if (gridSolution.length !== grid.length) {
     render(grid.length);

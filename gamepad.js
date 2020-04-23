@@ -39,6 +39,21 @@ function moveRight() {
   matchTables();
 }
 
+document.querySelector('.key__continue').addEventListener('click', function (e) {
+  if (done) {
+    hideSuccess();
+    start(grids[++gridIndex]);
+  }
+});
+
+document.querySelector('.key__restart').addEventListener('click', function (e) {
+  if (done && window.confirm("Do you really want to RESTART it?")) {
+      hideSuccess();
+      shuffleTable();
+      colorTable(gridPuzzle, tablePuzzle);
+    }
+});
+
 document.querySelector('.key--w').addEventListener('touchend', function (e) {
   selectUp();
 });

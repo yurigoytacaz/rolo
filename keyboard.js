@@ -21,7 +21,7 @@ document.addEventListener('keydown', function (e) {
   }
 
   if (code === KEY_ESC) {
-    if (done || window.confirm("Do you really want to SHUFFLE it?")) {
+    if (done && window.confirm("Do you really want to RESTART it?")) {
       hideSuccess();
       shuffleTable();
       colorTable(gridPuzzle, tablePuzzle);

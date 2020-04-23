@@ -164,13 +164,14 @@ body {
   font-family: monospace;
   background-color: rgba(0,0,0,.75);
   opacity: 0;
-  font-size: 18px;
+  font-size: 22px;
   visibility: hidden;
   transition: all 300ms ease;
 }
 
 .success__title {
-  font-size: 40px;
+  font-size: 54px;
+  margin-bottom: 10px;
 }
 
 .success--on {
@@ -178,7 +179,68 @@ body {
   visibility: visible;
 }
 
-.controller {
+.success__actions {
+  display: none;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.key__restart {
+  position: absolute;
+  z-index: 12;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  font-size: 0px;
+  border-radius: 50px;
+  background-color: #fff;
+}
+
+.key__restart:before,
+.key__restart:after {
+  content: '';
+  display: inline-flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  width: 3px;
+  height: 22px;
+  background-color: #222;
+}
+
+.key__restart:before {
+  transform: rotate(45deg) translateX(2px);
+}
+.key__restart:after {
+  transform: rotate(-45deg) translateX(-2px);
+}
+
+.key__continue {
+  position: relative;
+  z-index: 12;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  min-width: 120px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000;
+  background-color: #ccc;
+}
+
+.gamepad {
   position: absolute;
   bottom: 20px;
   /*display: grid;*/
@@ -187,11 +249,11 @@ body {
   grid-gap: 1px;
 }
 
-.controller--select {
+.gamepad--select {
   left: 10px;
 }
 
-.controller--move {
+.gamepad--move {
   right: 10px;
 }
 
@@ -201,8 +263,8 @@ body {
   justify-content: center;
   width: var(--key-size);
   height: var(--key-size);
-  /*border: 2px solid #eee;*/
-  background-color: #eee;
+  opacity: 0.5;
+  background-color: #ddd;
   box-sizing: border-box;
   text-indent: -9999px;
   overflow: hidden;
@@ -216,6 +278,7 @@ body {
 .key--up {
   grid-row: 1/2;
   grid-column: 2/3;
+  border-radius: 5px 5px 0 0;
 }
 
 .key--s,
@@ -228,12 +291,14 @@ body {
 .key--left {
   grid-row: 2/3;
   grid-column: 1/2;
+  border-radius: 5px 0 0 5px;
 }
 
 .key--d,
 .key--right {
   grid-row: 2/3;
   grid-column: 3/4;
+  border-radius: 0 5px 5px 0;
 }
 
 @media screen and (max-width: 1280px) {
@@ -248,14 +313,43 @@ body {
     --dot-size: 60px;
     --gap: 1px;
   }
-  .controller {
+  .gamepad {
     display: grid;
+  }
+  .success__more {
+    display: none;
+  }
+  .success__actions {
+    display: flex;
   }
 }
 @media screen and (max-width: 840px) {
  :root {
     --dot-size: 45px;
     --key-size: 65px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+ :root {
+    --dot-size: 45px;
+    --key-size: 60px;
+  }
+  .gamepad {
+    bottom: 1px;
+  }
+  .gamepad--select {
+    left: 1px;
+  }
+  .gamepad--move {
+    right: 1px;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 568px) {
+  :root {
+    --dot-size: 40px;
+    --key-size: 55px;
   }
 }
 
@@ -272,12 +366,7 @@ body {
     --dot-size: 60px;
     --arrow-size: 20px;
   }
-
-  .controller {
-    display: none;
-  }
 }
-
 
 @media (prefers-color-scheme: dark) {
   body {
@@ -295,10 +384,11 @@ body {
   html {
       background: #222;
   }
-  .grid {
+  .table,
+  .gamepad {
     display: none;
   }
-  .nope {
+  .grid {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -309,7 +399,7 @@ body {
       font-family: Helvetica, Arial, sans-serif;
       background: none;
   }
-  .nope:after {
+  .grid:after {
       content: 'ROTATE YOUR DEVICE';
       color: #fff;
       font-size: 12px;
