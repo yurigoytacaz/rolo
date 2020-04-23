@@ -1,6 +1,7 @@
 :root {
   --dot-size: 100px;
   --key-size: 90px;
+  --arrow-size: 50px;
   --gap: 5px;
   --rows: 6;
   --grid-size: calc( calc( var(--dot-size) * var(--rows) ) + calc( var(--gap) * calc(var(--rows)-1) ) );
@@ -38,12 +39,12 @@ body {
 
 .cel {
   display: flex;
-  width: 10vw;
-  height: 10vw;
+  width: 14vw;
+  height: 14vw;
   max-width: var(--dot-size);
   max-height: var(--dot-size);
-  min-width: calc(var(--dot-size)/2);
-  min-height: calc(var(--dot-size)/2);
+  min-width: calc(var(--dot-size)/3);
+  min-height: calc(var(--dot-size)/3);
   border-radius: var(--dot-size);
   align-items: center;
   justify-content: center;
@@ -87,7 +88,7 @@ body {
   display: flex;
   height: var(--dot-size);
   align-items: center;
-  font-size: 50px;
+  font-size: var(--arrow-size);
   color: #999;
 }
 
@@ -114,7 +115,7 @@ body {
   align-items: center;
   width: var(--dot-size);
   color: #999;
-  font-size: 50px;
+  font-size: var(--arrow-size);
   line-height: 1;
 }
 
@@ -180,7 +181,8 @@ body {
 .controller {
   position: absolute;
   bottom: 20px;
-  display: grid;
+  /*display: grid;*/
+  display: none;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1px;
 }
@@ -246,6 +248,9 @@ body {
     --dot-size: 60px;
     --gap: 1px;
   }
+  .controller {
+    display: grid;
+  }
 }
 @media screen and (max-width: 840px) {
  :root {
@@ -258,19 +263,57 @@ body {
  :root {
     --dot-size: 40px;
     --key-size: 60px;
+    --arrow-size: 30px;
   }
 }
 
+@media screen and (max-width: 375px) {
+ :root {
+    --dot-size: 60px;
+    --arrow-size: 20px;
+  }
+
+  .controller {
+    display: none;
+  }
+}
+
+
 @media (prefers-color-scheme: dark) {
-    body {
-      background-color: #222;
-    }
-    .key {s
-      background-color: #333;
-    }
-    .key:active {
-      background-color: #666;
-    }
+  body {
+    background-color: #222;
+  }
+  .key {s
+    background-color: #333;
+  }
+  .key:active {
+    background-color: #666;
+  }
+}
 
 @media (orientation: portrait) {
+  html {
+      background: #222;
+  }
+  .grid {
+    display: none;
+  }
+  .nope {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      z-index: 11;
+      font-family: Helvetica, Arial, sans-serif;
+      background: none;
+  }
+  .nope:after {
+      content: 'ROTATE YOUR DEVICE';
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+  }
 }
