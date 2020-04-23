@@ -107,47 +107,35 @@ function control(code) {
 
     switch (code) {
       case KEY_W:
-        rowSelected = Math.max(0, rowSelected - 1);
-        selectRow(tablePuzzle);
+        selectUp();
         break;
 
       case KEY_S:
-        rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
-        selectRow(tablePuzzle);
+        selectDown();
         break;
 
       case KEY_A:
-        colSelected = Math.max(0, colSelected - 1);
-        selectCol(tablePuzzle);
+        selectLeft();
         break;
 
       case KEY_D:
-        colSelected = Math.min(gridSolution[0].length - 1, colSelected + 1);
-        selectCol(tablePuzzle);
+        selectRight();
         break;
 
       case KEY_UP:
-        spinColumn(colSelected, -1);
-        colorTable(gridPuzzle, tablePuzzle);
-        done = matchTables();
+        moveUp();
         break;
 
       case KEY_DOWN:
-        spinColumn(colSelected, 1);
-        colorTable(gridPuzzle, tablePuzzle);
-        done = matchTables();
+        moveDown();
         break;
 
       case KEY_LEFT:
-        spinRow(rowSelected, -1);
-        colorTable(gridPuzzle, tablePuzzle);
-        done = matchTables();
+        moveLeft();
         break;
 
       case KEY_RIGHT:
-        spinRow(rowSelected, 1);
-        colorTable(gridPuzzle, tablePuzzle);
-        done = matchTables();
+        moveRight();
         break;
     }
   }

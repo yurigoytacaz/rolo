@@ -228,7 +228,6 @@ function start(grid) {
 
 function initialize() {
   render();
-
   start(grids[gridIndex]);
 }
 
