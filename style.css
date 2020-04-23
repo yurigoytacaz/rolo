@@ -1,5 +1,6 @@
 :root {
   --dot-size: 100px;
+  --key-size: 90px;
   --gap: 5px;
   --rows: 6;
   --grid-size: calc( calc( var(--dot-size) * var(--rows) ) + calc( var(--gap) * calc(var(--rows)-1) ) );
@@ -11,6 +12,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  touch-action: manipulation;
 }
 
 .grid {
@@ -66,8 +68,8 @@ body {
 .tableSolution .cel {
   max-width: 25px;
   max-height: 25px;
-  min-width: 15px;
-  min-height: 15px;
+  /*min-width: 15px;*/
+  /*min-height: 15px;*/
   width: calc(var(--dot-size)/4);
   height: calc(var(--dot-size)/4);
   text-indent: -9999px;
@@ -175,38 +177,100 @@ body {
   visibility: visible;
 }
 
-@media screen and (max-width: 1024px) {
+.controller {
+  position: absolute;
+  bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1px;
+}
 
+.controller--select {
+  left: 10px;
+}
+
+.controller--move {
+  right: 10px;
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--key-size);
+  height: var(--key-size);
+  /*border: 2px solid #eee;*/
+  background-color: #eee;
+  box-sizing: border-box;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+.key:active {
+  background-color: #ccc;
+}
+
+.key--w,
+.key--up {
+  grid-row: 1/2;
+  grid-column: 2/3;
+}
+
+.key--s,
+.key--down {
+  grid-row: 2/3;
+  grid-column: 2/3;
+}
+
+.key--a,
+.key--left {
+  grid-row: 2/3;
+  grid-column: 1/2;
+}
+
+.key--d,
+.key--right {
+  grid-row: 2/3;
+  grid-column: 3/4;
+}
+
+@media screen and (max-width: 1280px) {
  :root {
-    --dot-size: 60px;
+    --dot-size: 75px;
     --gap: 2px;
   }
+}
 
-  .tablePuzzle {
-    margin-left: 100px;
+@media screen and (max-width: 1024px) {
+ :root {
+    --dot-size: 60px;
+    --gap: 1px;
   }
-
-  .tableSolution {
-    width: calc(var(--grid-size)/2);
-    grid-gap: calc(var(--gap)/2);
+}
+@media screen and (max-width: 840px) {
+ :root {
+    --dot-size: 45px;
+    --key-size: 65px;
   }
-
 }
 
 @media screen and (max-width: 480px) {
-
  :root {
-    --dot-size: 55px;
-    --gap: 1px;
+    --dot-size: 40px;
+    --key-size: 60px;
   }
+}
 
-  .tablePuzzle {
-    margin-left: 0;
-  }
+@media (prefers-color-scheme: dark) {
+    body {
+      background-color: #222;
+    }
+    .key {s
+      background-color: #333;
+    }
+    .key:active {
+      background-color: #666;
+    }
 
-  .tableSolution {
-    width: calc(var(--grid-size)/2);
-    grid-gap: var(--gap);
-  }
-
+@media (orientation: portrait) {
 }

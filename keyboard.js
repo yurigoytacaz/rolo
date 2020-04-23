@@ -32,6 +32,54 @@ document.addEventListener('keydown', function (e) {
       }
     break;
 
+    case KEY_W:
+      if (done === false) {
+        selectUp();
+      }
+    break;
+
+    case KEY_S:
+      if (done === false) {
+        selectDown();
+      }
+    break;
+
+    case KEY_A:
+      if (done === false) {
+        selectLeft();
+      }
+    break;
+
+    case KEY_D:
+      if (done === false) {
+        selectRight();
+      }
+    break;
+
+    case KEY_UP:
+      if (done === false) {
+        moveUp();
+      }
+    break;
+
+    case KEY_DOWN:
+      if (done === false) {
+        moveDown();
+      }
+    break;
+
+    case KEY_LEFT:
+      if (done === false) {
+        moveLeft();
+      }
+    break;
+
+    case KEY_RIGHT:
+      if (done === false) {
+        moveRight();
+      }
+    break;
+
     case KEY_NUMZERO+1:
       if (window.confirm("Do you really want to RELOAD it?")) {
         gridSolution = grid1
@@ -99,58 +147,6 @@ document.addEventListener('keydown', function (e) {
       if (window.confirm("Do you really want to RELOAD it?")) {
         gridSolution = grid0
         start()
-      }
-    break;
-
-    case KEY_W:
-      if (done === false) {
-        rowSelected = Math.max(0, rowSelected - 1);
-        selectRow(tablePuzzle);
-      }
-    break;
-
-    case KEY_S:
-      if (done === false) {
-        rowSelected = Math.min(gridSolution.length - 1, rowSelected + 1);
-        selectRow(tablePuzzle);
-      }
-    break;
-
-    case KEY_A:
-      colSelected = Math.max(0, colSelected - 1);
-      selectCol(tablePuzzle);
-    break;
-
-    case KEY_D:
-      colSelected = Math.min(gridSolution[0].length - 1, colSelected + 1);
-      selectCol(tablePuzzle);
-    break;
-
-    case KEY_UP:
-      spinColumn(colSelected, -1);
-      colorTable(gridPuzzle, tablePuzzle);
-      matchTables();
-    break;
-
-    case KEY_DOWN:
-      spinColumn(colSelected, 1);
-      colorTable(gridPuzzle, tablePuzzle);
-      matchTables();
-    break;
-
-    case KEY_LEFT:
-      if (done === false) {
-        spinRow(rowSelected, -1);
-        colorTable(gridPuzzle, tablePuzzle);
-        matchTables();
-      }
-    break;
-
-    case KEY_RIGHT:
-      if (done === false) {
-        spinRow(rowSelected, 1);
-        colorTable(gridPuzzle, tablePuzzle);
-        matchTables();
       }
     break;
 

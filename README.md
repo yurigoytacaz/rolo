@@ -7,12 +7,12 @@ The game is in its first release (0.0.1alpha), but its playable, at least.
 
 Still need to add new maps/layouts, add controls so its playable in mobile devices, maybe a timer, a ranking, someday, etc...
 
-Thanks to [lipe](https://instagram.com/lipe4ndrade) for putting up to me until 2am, [@fabioars](https://github.com/fabioars) for insisting that I try to code something in JavaSciprt (will get there), [@lucasmedi](https://github.com/lucasmedi), [@airstrike](https://github.com/airstrike).
+Thanks to lipe for putting up to me until 2am, [@fabioars](https://github.com/fabioars) for insisting that I try to code something in JavaSciprt (will get there), [@lucasmedi](https://github.com/lucasmedi), [@airstrike](https://github.com/airstrike).
 
 ## Contributors
 | [<img src="https://avatars3.githubusercontent.com/u/5921856?s=400&v=4" width="115"><br><sub>@fabioars</sub>](https://github.com/fabioars) | [<img src="https://avatars3.githubusercontent.com/u/3215729?s=400&v=4" width="115"><br><sub>@lucasmedi</sub>](https://github.com/lucasmedi) | [<img src="https://avatars3.githubusercontent.com/u/152812?s=400&v=4" width="115"><br><sub>@airstrike</sub>](https://github.com/airstrike) |
 | :---: | :---: | :---: |
 
-## Authors
-| [<img src="https://avatars0.githubusercontent.com/u/4606636?s=400&v=4" width="115"><br><sub>@lipe4ndrade</sub>](https://instagram.com/lipe4ndrade) | [<img src="https://avatars3.githubusercontent.com/u/682565?s=460&v=4" width=115><br><sub>@yurigoytacaz</sub>](https://github.com/yurigoytacaz) |
-| :---: | :---: |
+## Author
+|  [<img src="https://avatars3.githubusercontent.com/u/682565?s=460&v=4" width=115><br><sub>@yurigoytacaz</sub>](https://github.com/yurigoytacaz) |
+| :---: |
