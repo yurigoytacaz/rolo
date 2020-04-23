@@ -201,11 +201,16 @@ body {
   justify-content: center;
   width: var(--key-size);
   height: var(--key-size);
-  /*border: 2px solid #eee;*/
-  background-color: #eee;
+  opacity: 0.5;
+  border-radius: 5px;
+  background-color: #ddd;
   box-sizing: border-box;
   text-indent: -9999px;
   overflow: hidden;
+}
+
+.controller--move .key {
+  border-radius: var(--key-size);
 }
 
 .key:active {
@@ -259,6 +264,29 @@ body {
   }
 }
 
+@media screen and (max-width: 768px) {
+ :root {
+    --dot-size: 45px;
+    --key-size: 60px;
+  }
+  .controller {
+    bottom: 1px;
+  }
+  .controller--select {
+    left: 1px;
+  }
+  .controller--move {
+    right: 1px;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 568px) {
+  :root {
+    --dot-size: 40px;
+    --key-size: 55px;
+  }
+}
+
 @media screen and (max-width: 480px) {
  :root {
     --dot-size: 40px;
@@ -272,12 +300,7 @@ body {
     --dot-size: 60px;
     --arrow-size: 20px;
   }
-
-  .controller {
-    display: none;
-  }
 }
-
 
 @media (prefers-color-scheme: dark) {
   body {
@@ -295,10 +318,11 @@ body {
   html {
       background: #222;
   }
-  .grid {
+  .table,
+  .controller {
     display: none;
   }
-  .nope {
+  .grid {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -309,7 +333,7 @@ body {
       font-family: Helvetica, Arial, sans-serif;
       background: none;
   }
-  .nope:after {
+  .grid:after {
       content: 'ROTATE YOUR DEVICE';
       color: #fff;
       font-size: 12px;
