@@ -13,8 +13,8 @@
     "@babel/preset-env": "^7.9.5"
   },
   "scripts": {
-    "build": "babel src -d dist --source-maps",
-    "watch": "babel src -d dist --source-maps --watch"
+    "build": "babel src -d public",
+    "watch": "babel src -d public --source-maps --watch"
   },
   "repository": {
     "type": "git",
