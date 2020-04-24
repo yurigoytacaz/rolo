@@ -42,7 +42,7 @@ function moveRight() {
 document.querySelector('.key__continue').addEventListener('touchend', function (e) {
   if (done) {
     hideSuccess();
-    start(levels[++levelsIndex]);
+    start(levels[++levelIndex]);
   }
 });
 
