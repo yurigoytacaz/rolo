@@ -40,18 +40,11 @@ function moveRight() {
 }
 
 document.querySelector('.key__continue').addEventListener('touchend', function (e) {
-  if (done) {
-    hideSuccess();
-    start(levels[++levelIndex]);
-  }
+  nextLevel();
 });
 
 document.querySelector('.key__restart').addEventListener('touchend', function (e) {
-  if (done && window.confirm("Do you really want to RESTART it?")) {
-      hideSuccess();
-      shuffleTable();
-      colorTable(gridPuzzle, tablePuzzle);
-    }
+  restartLevel();
 });
 
 document.querySelector('.key--w').addEventListener('touchend', function (e) {

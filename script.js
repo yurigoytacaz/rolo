@@ -22,6 +22,57 @@ let slider = null;
 let done = false;
 let debug = false;
 
+const transpose = (g) => Object.keys(g[0]).map((c) => g.map((r) => r[c]));
+const setInnerHtml = (elem, html) => elem.innerHTML = html;
+const appendInnerHtml = (elem, html) => elem.innerHTML += html;
+
+
+function start(grid) {
+  if (gridSolution.length !== grid.length) {
+    render(grid.length);
+  }
+
+  console.log("ROLLING >>>> ");
+
+  gridSolution = grid;
+
+  colorTable(gridSolution, tableSolution);
+  shuffleTable();
+  colorTable(gridPuzzle, tablePuzzle);
+
+  rowSelected = Math.min(0, rowSelected + 1);
+  selectRow(tablePuzzle);
+
+  colSelected = Math.max(0, colSelected - 1);
+  selectCol(tablePuzzle);
+
+  console.log("ROLLED <<<<");
+}
+
+function initialize() {
+  const initialLevel = levels[levelIndex];
+  // console.log(initialLevel)
+  start(initialLevel);
+}
+
+function nextLevel() {
+  if (done) {
+    hideSuccess();
+    start(levels[++levelIndex]);
+    // localStorage.setItem('levelIndex', ++levelIndex);
+    // var level = localStorage.getItem('levelIndex');
+    // console.log(level)
+  }
+}
+
+function restartLevel() {
+  if (done && window.confirm("Do you really want to RESTART it?")) {
+    hideSuccess();
+    shuffleTable();
+    colorTable(gridPuzzle, tablePuzzle);
+  }
+}
+
 function render(size) {
   let root = document.documentElement;
   root.style.setProperty('--rows', size);
@@ -176,10 +227,6 @@ function colorTable(grid, baseElement) {
   }
 }
 
-const transpose = (g) => Object.keys(g[0]).map((c) => g.map((r) => r[c]));
-const setInnerHtml = (elem, html) => elem.innerHTML = html;
-const appendInnerHtml = (elem, html) => elem.innerHTML += html;
-
 function debugar() {
   debug = !debug;
   console.log(debug);
@@ -196,33 +243,6 @@ function solveIt() {
   selectRow(tablePuzzle);
   selectCol(tablePuzzle);
   colorTable(gridPuzzle, tablePuzzle);
-}
-
-function start(grid) {
-  if (gridSolution.length !== grid.length) {
-    render(grid.length);
-  }
-
-  console.log("ROLLING >>>> ");
-
-  gridSolution = grid;
-
-  colorTable(gridSolution, tableSolution);
-  shuffleTable();
-  colorTable(gridPuzzle, tablePuzzle);
-
-  rowSelected = Math.min(0, rowSelected + 1);
-  selectRow(tablePuzzle);
-
-  colSelected = Math.max(0, colSelected - 1);
-  selectCol(tablePuzzle);
-
-  console.log("ROLLED <<<<");
-}
-
-function initialize() {
-  const initialLevel = levels[levelIndex];
-  start(initialLevel);
 }
 
 initialize();

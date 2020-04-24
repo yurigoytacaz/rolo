@@ -21,18 +21,11 @@ document.addEventListener('keydown', function (e) {
   }
 
   if (code === KEY_ESC) {
-    if (done && window.confirm("Do you really want to RESTART it?")) {
-      hideSuccess();
-      shuffleTable();
-      colorTable(gridPuzzle, tablePuzzle);
-    }
+    restartLevel();
   }
 
   if (code === KEY_ENTER) {
-    if (done) {
-      hideSuccess();
-      start(levels[++levelIndex]);
-    }
+    nextLevel();
   }
 
   if (code >= KEY_NUMZERO && code < KEY_A) {
@@ -111,11 +104,11 @@ function control(code) {
       break;
 
     case KEY_A:
-      selectLeft();
+      moveLeft();
       break;
 
     case KEY_D:
-      selectRight();
+      moveRight();
       break;
 
     case KEY_UP:
@@ -127,11 +120,11 @@ function control(code) {
       break;
 
     case KEY_LEFT:
-      moveLeft();
+      selectLeft();
       break;
 
     case KEY_RIGHT:
-      moveRight();
+      selectRight();
       break;
   }
 }
