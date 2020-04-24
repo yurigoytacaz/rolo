@@ -10,128 +10,125 @@ const KEY_A = 65;
 const KEY_D = 68;
 const KEY_S = 83;
 const KEY_W = 87;
+const KEY__ = 189;
 
 document.addEventListener('keydown', function (e) {
   var code = e.keyCode ? e.keyCode : e.which;
-  console.log(code);
 
   if (code === KEY_SPACE) {
-    debugar();
+    game.debug();
     return;
   }
 
   if (code === KEY_ESC) {
-    if (done && window.confirm("Do you really want to RESTART it?")) {
-      hideSuccess();
-      shuffleTable();
-      colorTable(gridPuzzle, tablePuzzle);
+    if (!game.isDone() && window.confirm("Do you really want to RESTART it?")) {
+      game.restart();
     }
   }
 
   if (code === KEY_ENTER) {
-    if (done) {
-      hideSuccess();
-      start(levels[++levelIndex]);
+    if (game.isDone()) {
+      game.nextLevel();
     }
   }
 
-  if (code >= KEY_NUMZERO && code < KEY_A) {
+  if ((code >= KEY_NUMZERO && code < KEY_A) || code === KEY__) {
     navigation(code);
   }
 
   if ((code >= KEY_LEFT && code <= KEY_DOWN) || code >= KEY_A && code <= KEY_W) {
     control(code);
   }
-
-  if (done) {
-    showSuccess();
-  }
 });
 
 function navigation(code) {
-  if (!done && !window.confirm("Do you really want to RELOAD it?"))
+  if (!game.isDone() && !window.confirm("Do you really want to RELOAD it?"))
     return;
 
+  let level = 0;
   switch (code) {
     case KEY_NUMZERO + 1:
-      levelIndex = 0;
       break;
 
     case KEY_NUMZERO + 2:
-      levelIndex = 1;
+      level = 1;
       break;
 
     case KEY_NUMZERO + 3:
-      levelIndex = 2;
+      level = 2;
       break;
 
     case KEY_NUMZERO + 4:
-      levelIndex = 3;
+      level = 3;
       break;
 
     case KEY_NUMZERO + 5:
-      levelIndex = 4;
+      level = 4;
       break;
 
     case KEY_NUMZERO + 6:
-      levelIndex = 5;
+      level = 5;
       break;
 
     case KEY_NUMZERO + 7:
-      levelIndex = 6;
+      level = 6;
       break;
 
     case KEY_NUMZERO + 8:
-      levelIndex = 7;
+      level = 7;
       break;
 
     case KEY_NUMZERO + 9:
-      levelIndex = 8;
+      level = 8;
       break;
 
     case KEY_NUMZERO + 0:
-      levelIndex = (levelIndex !== 9 ? 9 : 10);
+      level = 9;
+      break;
+
+    case KEY__:
+      level = 10;
       break;
   }
 
-  start(levels[levelIndex]);
+  game.setLevel(level);
 }
 
 function control(code) {
-  if (done)
+  if (game.isDone())
     return;
 
   switch (code) {
     case KEY_W:
-      selectUp();
+      game.selectUp();
       break;
 
     case KEY_S:
-      selectDown();
+      game.selectDown();
       break;
 
     case KEY_A:
-      selectLeft();
+      game.selectLeft();
       break;
 
     case KEY_D:
-      selectRight();
+      game.selectRight();
       break;
 
     case KEY_UP:
-      moveUp();
+      game.moveUp();
       break;
 
     case KEY_DOWN:
-      moveDown();
+      game.moveDown();
       break;
 
     case KEY_LEFT:
-      moveLeft();
+      game.moveLeft();
       break;
 
     case KEY_RIGHT:
-      moveRight();
+      game.moveRight();
       break;
   }
 }
