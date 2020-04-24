@@ -1,0 +1,33 @@
+{
+  "name": "rolo",
+  "version": "1.0.0",
+  "description": "fun rolo game",
+  "main": " index.js",
+  "directories": {
+    "src": "src"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5"
+  },
+  "scripts": {
+    "build": "babel src -d dist --source-maps",
+    "watch": "babel src -d dist --source-maps --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yurigoytacaz/rolo.git"
+  },
+  "keywords": [
+    "game",
+    "rolo"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yurigoytacaz/rolo/issues"
+  },
+  "homepage": "https://github.com/yurigoytacaz/rolo#readme"
+}
