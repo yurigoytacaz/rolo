@@ -108,11 +108,11 @@ function control(code) {
       break;
 
     case KEY_A:
-      game.selectLeft();
+      game.moveLeft();
       break;
 
     case KEY_D:
-      game.selectRight();
+      game.moveRight();
       break;
 
     case KEY_UP:
@@ -124,11 +124,11 @@ function control(code) {
       break;
 
     case KEY_LEFT:
-      game.moveLeft();
+      game.selectLeft();
       break;
 
     case KEY_RIGHT:
-      game.moveRight();
+      game.selectRight();
       break;
   }
 }
