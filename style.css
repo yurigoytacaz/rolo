@@ -7,13 +7,16 @@
   --grid-size: calc( calc( var(--dot-size) * var(--rows) ) + calc( var(--gap) * calc(var(--rows)-1) ) );
 }
 
+* {
+  touch-action: manipulation;
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  touch-action: manipulation;
 }
 
 .grid {
@@ -336,7 +339,7 @@ body {
     --key-size: 60px;
   }
   .gamepad {
-    bottom: 1px;
+    bottom: 50px;
   }
   .gamepad--select {
     left: 1px;
@@ -350,6 +353,9 @@ body {
   :root {
     --dot-size: 40px;
     --key-size: 55px;
+  }
+  .gamepad {
+    bottom: 10px;
   }
 }
 
@@ -366,6 +372,7 @@ body {
     --dot-size: 60px;
     --arrow-size: 20px;
   }
+
 }
 
 @media (prefers-color-scheme: dark) {
